@@ -1,0 +1,42 @@
+@use "variables" as *;
+@use "mixins";
+
+// Styling for Pop-up menu that appears when user clicks on the share button
+// Hidden by default until user clicks on the share button
+#share-popup {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+
+  background: $primary-font-color;
+  color: $bg-color-base;
+  // Add padding to align the popup's content with the rest of the card
+  // This is independent of the author-info padding.
+  // Match the horizontal padding of the .author-info container
+  padding: $space-sm $space-lg;
+  // Allow overlay to fill the entire parent author-info container
+  margin-inline: -$space-sm;
+
+  .text {
+    font-size: $fs-base;
+    letter-spacing: 0.25rem;
+    text-transform: uppercase;
+    color: $grayish-blue;
+    font-weight: 500;
+  }
+
+  .social-icons {
+    @include mixins.flexbox();
+    gap: $space-sm;
+  }
+
+  // When the popup has the .active class i.e. users clicks share button, it will be displayed
+  &.active {
+    @include mixins.flexbox($justify: flex-start);
+    gap: $space-md;
+  }
+}

@@ -1,0 +1,34 @@
+@use "variables" as *;
+
+//=====================================================================
+// Mixins
+//=====================================================================
+
+// A helper mixin for creating flexbox containers.
+// Defaults to a centered row layout.
+// @param {string} $direction - The flex-direction (e.g., row, column).
+// @param {string} $justify - The justify-content value.
+// @param {string} $align - The align-items value.
+@mixin flexbox($direction: row, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+// Applies a consistent theme to a card element.
+// @param {Color} $bg-color - The background color of the card.
+// @param {Color} $font-color - The text color for the card's content.
+// @param {Length} $border-radius - The corner radius for the card.
+// @param {Length | List} $padding - The padding value(s) for the card.
+@mixin card-theme(
+  $bg-color: $bg-color-card,
+  $font-color: $primary-font-color,
+  $border-radius: $border-radius-card,
+  $padding: $space-md
+) {
+  background-color: $bg-color;
+  color: $font-color;
+  border-radius: $border-radius;
+  padding: $padding;
+}

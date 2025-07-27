@@ -1,0 +1,156 @@
+@use "variables" as *;
+@use "mixins";
+@use "popup-component";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  /* Reset Margins/Padding */
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Fluid Typography */
+  // Use clamp() with min, preferred, max.
+  // This makes the font size responsive between 0.8rem and 1rem.
+  font-size: clamp($fs-base, 0.9rem + 1vw, $space-sm);
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+}
+
+/* Styling */
+
+h1 {
+  font-weight: 700;
+  font-size: $fs-h1;
+}
+
+.container {
+  // Use flexbox mixin to create flexbox container
+  // and uses its default behaviour to
+  // center it vertically and horizontally
+  @include mixins.flexbox($direction: column);
+  background-color: $bg-color-base;
+  // Use min-height to allow the container to grow if content is taller than the viewport
+  min-height: 100vh;
+  padding: $space-md;
+}
+
+.article-preview {
+  // Creates flexbox card container with a column layout
+  @include mixins.flexbox($direction: column);
+
+  // Use mixin to define card styling
+  @include mixins.card-theme(
+    $bg-color: $bg-color-card,
+    $font-color: $primary-font-color,
+    $border-radius: $border-radius-card,
+    $padding: 0
+  );
+  // Allows image to display border radius of the card
+  overflow: hidden;
+  // Set a max-width to match the mobile design more closely.
+  max-width: 20rem; // 327px
+
+  &__header {
+    // Set a fixed height for the image container to control aspect ratio
+    // Width required to be visible inside the parent flex container.
+    width: 100%;
+    height: 12.5rem; // 200px
+    background-image: url("../images/drawers.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__content {
+    padding: 2rem 2rem 1.25rem;
+    font-size: $fs-sm;
+  }
+
+  h1 {
+    padding-bottom: 0.75rem; // 12px
+  }
+
+  &__text {
+    color: $secondary-font-color;
+    line-height: 1.5;
+  }
+}
+
+.author-info {
+  // Add a positioning context for the absolute-positioned popup
+  // Ensure popup is an overlay that replaces the author-info
+  position: relative;
+  // Use grid to layout the author info section
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "avatar author-name button"
+    "avatar date        button";
+  gap: 0 $space-md;
+  padding: $space-sm $space-lg;
+
+  &__avatar {
+    grid-area: avatar;
+    border-radius: $border-radius-circle;
+    max-width: 2.5rem;
+    align-self: center; // Center the avatar between the two rows
+  }
+
+  &__name {
+    grid-area: author-name;
+    color: $primary-font-color;
+    font-weight: 700;
+    align-self: end;
+    font-size: $fs-base;
+  }
+
+  &__date {
+    grid-area: date;
+    color: $grayish-blue;
+    font-size: $fs-sm;
+    align-self: start;
+  }
+
+  &__button {
+    grid-area: button;
+    align-self: center;
+    border-radius: $border-radius-circle;
+    background: $bg-color-base;
+    border: none;
+    width: 2rem;
+    height: 2rem;
+    // Use flexbox mixin with default parameters
+    // centers the icon inside the button
+    @include mixins.flexbox();
+    // Places button below the share button to ensure the button is
+    // clickable when the popup is active
+    z-index: 2;
+    transition: background-color 0.3s ease;
+
+    // When share-button is clicked, author-info will be replaced by popup
+    // until deactivated i.e. button is clicked again
+    &.active {
+      background: $secondary-font-color;
+      .author-info__share-icon {
+        filter: brightness(0) invert(1);
+      }
+    }
+  }
+
+  &__share-icon {
+    width: 1rem;
+  }
+}
+
+.attribution {
+  font-size: $fs-attribution;
+  text-align: center;
+  padding-top: $space-md;
+
+  &__link {
+    color: $link-color;
+  }
+}
