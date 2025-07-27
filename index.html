@@ -12,13 +12,6 @@
       href="./images/favicon-32x32.png"
     />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&display=swap"
-      rel="stylesheet"
-    />
-
     <title>Frontend Mentor | Article preview component</title>
     <link rel="stylesheet" href="assets/styles/main.css" />
     <script defer src="src/popup-component.js"></script>
@@ -43,9 +36,29 @@
           <div id="share-popup">
             <div class="text">Share</div>
             <nav class="social-icons">
-              <img src="assets/images/icon-facebook.svg" alt="Facebook" />
-              <img src="assets/images/icon-twitter.svg" alt="Twitter" />
-              <img src="assets/images/icon-pinterest.svg" alt="Pinterest" />
+              <a
+                href="https://www.facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-icons__link"
+                ><img src="assets/images/icon-facebook.svg" alt="Facebook"
+              /></a>
+              <a
+                href="https://www.x.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-icons__link"
+              >
+                <img src="assets/images/icon-twitter.svg" alt="Twitter" />
+              </a>
+              <a
+                href="https://www.pinterest.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-icons__link"
+              >
+                <img src="assets/images/icon-pinterest.svg" alt="Pinterest" />
+              </a>
             </nav>
           </div>
           <img
@@ -54,7 +67,7 @@
             class="author-info__avatar"
           />
           <p class="author-info__name">Michelle Appleton</p>
-          <time class="author-info__date">28 Jun 2020</time>
+          <p class="author-info__date">28 Jun 2020</p>
           <button class="author-info__button" type="button">
             <img
               src="assets/images/icon-share.svg"
@@ -71,7 +84,14 @@
           target="_blank"
           class="attribution__link"
           >Frontend Mentor</a
-        >. Coded by <a href="#" class="attribution__link">Liza Fernandez</a>.
+        >. Coded by
+        <a
+          href="https://www.lizafernandez.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="attribution__link"
+          >Liza Fernandez</a
+        >.
       </footer>
     </main>
   </body>
