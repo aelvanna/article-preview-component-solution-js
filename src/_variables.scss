@@ -3,19 +3,18 @@
 /*============================================*/
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
 
-/* Font Fami$ly */
+/* Font Family */
 $primary-font: "Manrope", sans-serif;
 
 /* Fluid Typography & Font-size variables */
-/* clamp() --> with min, preferred, max.
 /* This makes the font size responsive. */
+/* Based on base font size of 13px @ 375px & 14px @ 1440px */
+/* 375px Typescale Ratio 1.125, 1440pxz 1.2 */
+/* Calculated with: https://www.fluid-type-scale.com/calculate */
 $fs-sm: clamp(0.72rem, 0.01vi + 0.72rem, 0.73rem);
 $fs-base: clamp(0.81rem, 0.09vi + 0.79rem, 0.88rem);
 $fs-md: clamp(0.91rem, 0.2vi + 0.87rem, 1.05rem);
-$fs-lg: clamp(1.03rem, 0.35vi + 0.95rem, 1.26rem);
 $fs-xl: clamp(1.16rem, 0.53vi + 1.03rem, 1.51rem);
-$fs-xxl: clamp(1.3rem, 0.77vi + 1.12rem, 1.81rem);
-$fs-xxxl: clamp(1.46rem, 1.07vi + 1.21rem, 2.18rem);
 
 /* Colour Variables */
 $link-color: hsl(228, 45%, 44%);
@@ -41,7 +40,6 @@ $space-3xl: 3.5rem;
 
 /* Breakpoint Variables */
 $breakpoint-desktop: 1024px;
-$breakpoint-tablet: 768px;
 
 /* Popup Variables */
 $popup-width-desktop: 25rem;

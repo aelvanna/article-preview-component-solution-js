@@ -43,7 +43,7 @@ h1 {
   @include mixins.flexbox($direction: column);
   // Desktop Layout //
   @include mixins.breakpoint($breakpoint-desktop) {
-    // On desktop, use a grid
+    // From tablet to desktop, use a grid
     display: grid;
     grid-template-columns: 18rem 1fr;
     grid-template-areas:
@@ -67,6 +67,8 @@ h1 {
     $border-radius: $border-radius-card,
     $padding: 0
   );
+
+  filter: drop-shadow(0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.1));
 
   &__header {
     // Set a fixed height for the image container to control aspect ratio
