@@ -12,10 +12,7 @@
 }
 
 html {
-  /* Fluid Typography */
-  // Use clamp() with min, preferred, max.
-  // This makes the font size responsive between 0.8rem and 1rem.
-  font-size: clamp($fs-base, 0.9rem + 1vw, $space-sm);
+  font-size: $fs-base;
   font-family: "Manrope", sans-serif;
   font-weight: 500;
 }
@@ -24,7 +21,7 @@ html {
 
 h1 {
   font-weight: 700;
-  font-size: $fs-h1;
+  font-size: $fs-xl;
 }
 
 .container {
@@ -32,15 +29,36 @@ h1 {
   // and uses its default behaviour to
   // center it vertically and horizontally
   @include mixins.flexbox($direction: column);
+
   background-color: $bg-color-base;
-  // Use min-height to allow the container to grow if content is taller than the viewport
+  // Use min-height to allow the container to grow if
+  // content is taller than the viewport
   min-height: 100vh;
   padding: $space-md;
 }
 
 .article-preview {
+  // Base Layout //
   // Creates flexbox card container with a column layout
   @include mixins.flexbox($direction: column);
+  // Desktop Layout //
+  @include mixins.breakpoint($breakpoint-desktop) {
+    // On desktop, use a grid
+    display: grid;
+    grid-template-columns: 18rem 1fr;
+    grid-template-areas:
+      "header content"
+      "header author-info";
+    max-width: 50rem;
+    // Allow the absolutely positioned popup to be
+    // visible outside the card's bounds.
+    overflow: visible;
+  }
+
+  // Set a max-width to match the mobile design
+  max-width: 23.5rem;
+  // Hides the parts of the child elements that overflow the card's rounded corners.
+  overflow: hidden;
 
   // Use mixin to define card styling
   @include mixins.card-theme(
@@ -49,28 +67,38 @@ h1 {
     $border-radius: $border-radius-card,
     $padding: 0
   );
-  // Allows image to display border radius of the card
-  overflow: hidden;
-  // Set a max-width to match the mobile design more closely.
-  max-width: 20rem; // 327px
 
   &__header {
     // Set a fixed height for the image container to control aspect ratio
     // Width required to be visible inside the parent flex container.
-    width: 100%;
-    height: 12.5rem; // 200px
+    width: 120%;
+    height: 15rem;
     background-image: url("../images/drawers.jpg");
     background-size: cover;
     background-position: center;
+
+    @include mixins.breakpoint($breakpoint-desktop) {
+      grid-area: header;
+      // On desktop, set the height to auto to allow the image to fill the card
+      min-height: 100%;
+      width: auto;
+      // Apply border-radius directly to the image header on desktop,
+      // as the parent's `overflow: visible` will not clip it.
+      border-radius: $border-radius-card 0 0 $border-radius-card;
+    }
   }
 
   &__content {
     padding: 2rem 2rem 1.25rem;
-    font-size: $fs-sm;
+
+    // Desktop Layout //
+    @include mixins.breakpoint($breakpoint-desktop) {
+      grid-area: content;
+    }
   }
 
   h1 {
-    padding-bottom: 0.75rem; // 12px
+    padding-bottom: $space-sm;
   }
 
   &__text {
@@ -81,21 +109,30 @@ h1 {
 
 .author-info {
   // Add a positioning context for the absolute-positioned popup
-  // Ensure popup is an overlay that replaces the author-info
+  // Ensures popup is an overlay that replaces the author-info
   position: relative;
   // Use grid to layout the author info section
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr 4fr 1fr;
   grid-template-areas:
     "avatar author-name button"
     "avatar date        button";
-  gap: 0 $space-md;
-  padding: $space-sm $space-lg;
+  gap: 0 $space-sm;
+  padding-inline: $space-sm;
+  padding-block: $space-xs $space-lg;
 
+  // Desktop Layout //
+  @include mixins.breakpoint($breakpoint-desktop) {
+    grid-area: author-info;
+    grid-template-columns: 1fr 4fr 1fr;
+    gap: 0;
+    padding-left: $space-lg;
+  }
+  // Mobile Layout //
   &__avatar {
     grid-area: avatar;
     border-radius: $border-radius-circle;
-    max-width: 2.5rem;
+    max-width: 3rem;
     align-self: center; // Center the avatar between the two rows
   }
 
@@ -104,13 +141,13 @@ h1 {
     color: $primary-font-color;
     font-weight: 700;
     align-self: end;
-    font-size: $fs-base;
+    font-size: $fs-md;
   }
 
   &__date {
     grid-area: date;
     color: $grayish-blue;
-    font-size: $fs-sm;
+    font-size: $fs-md;
     align-self: start;
   }
 
@@ -120,8 +157,9 @@ h1 {
     border-radius: $border-radius-circle;
     background: $bg-color-base;
     border: none;
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
+    transform: translate(-0.5rem, 0.5rem);
     // Use flexbox mixin with default parameters
     // centers the icon inside the button
     @include mixins.flexbox();
@@ -129,6 +167,11 @@ h1 {
     // clickable when the popup is active
     z-index: 2;
     transition: background-color 0.3s ease;
+
+    &__share-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
 
     // When share-button is clicked, author-info will be replaced by popup
     // until deactivated i.e. button is clicked again
@@ -139,14 +182,10 @@ h1 {
       }
     }
   }
-
-  &__share-icon {
-    width: 1rem;
-  }
 }
 
 .attribution {
-  font-size: $fs-attribution;
+  font-size: $fs-sm;
   text-align: center;
   padding-top: $space-md;
 

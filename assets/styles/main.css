@@ -1,5 +1,39 @@
+/*============================================*/
+/* Variable Declarations
+/*============================================*/
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+/* Font Fami$ly */
+/* Fluid Typography & Font-size variables */
+/* clamp() --> with min, preferred, max.
+/* This makes the font size responsive. */
+/* Colour Variables */
+/* Border Radius Variables */
+/* Spacing Variables */
+/* Breakpoint Variables */
+/* Popup Variables */
+/*===================================================================*/
+/* Mixins
+/*===================================================================*/
+/* Variables defined in _variables.scss */
+/* A helper mixin for creating flexbox containers.
+/* Defaults to a centered row layout.
+/* @param {string} $direction - The flex-direction (e.g., row, column).
+/* @param {string} $justify - The justify-content value.
+/* @param {string} $align - The align-items value. */
+/* Applies a consistent theme to a card element.
+/* @param {Color} $bg-color - The background color of the card.
+/* @param {Color} $font-color - The text color for the card's content.
+/* @param {Length} $border-radius - The corner radius for the card.
+/* @param {Length | List} $padding - The padding value(s) for the card. */
+/* Mixin alternative for media queries.
+/* @param {variable} : $min --> The minimum breakpoint
+/* @param {variable} : $max --> The maximum breakpoint */
+/* ==========================================================================*/
+/* Popup Component for share button */
+/* Styling for Pop-up menu that appears when user clicks on the share button
+/* ==========================================================================*/
 #share-popup {
+  /* Hidden by default until user clicks on the share button */
   display: none;
   position: absolute;
   top: 0;
@@ -9,12 +43,15 @@
   z-index: 1;
   background: hsl(217, 19%, 35%);
   color: hsl(210, 46%, 95%);
-  padding: 1rem 2rem;
+  /* Allow overlay to fill the entire parent author-info container */
   margin-inline: -1rem;
+  padding-inline: 2.5rem;
+  padding-block: 1rem 2rem;
+  /* When the popup has the .active class i.e. users clicks share button, it will be displayed */
 }
 #share-popup .text {
-  font-size: 0.8rem;
-  letter-spacing: 0.25rem;
+  font-size: clamp(1.16rem, 0.53vi + 1.03rem, 1.51rem);
+  letter-spacing: 0.5rem;
   text-transform: uppercase;
   color: hsl(212, 23%, 69%);
   font-weight: 500;
@@ -31,9 +68,65 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  padding-block: 1.5rem;
   gap: 1.5rem;
 }
 
+@media (min-width: 1024px) {
+  #share-popup {
+    position: absolute;
+    /* Design of the popup on desktop
+    /* Original CSS from is #5 from: https://css-generators.com/tooltip-speech-bubble/ */
+    color: #fff;
+    font-size: 18px;
+    /* Value set in the variables file as $popup-width-desktop */
+    max-width: 25rem;
+    text-align: center;
+    /* Triangle dimensions */
+    --b: 2em; /* base */
+    --h: 1em; /* height */
+    --p: 50%; /* triangle position (0%:left 100%:right) */
+    --r: 1em; /* the radius */
+    --c: hsl(217, 19%, 35%); /* background-color */
+    padding: 1em 1.5em;
+    border-radius: var(--r) var(--r) min(var(--r), 100% - var(--p) - var(--b) / 2) min(var(--r), var(--p) - var(--b) / 2)/var(--r);
+    clip-path: polygon(0 100%, 0 0, 100% 0, 100% 100%, min(100%, var(--p) + var(--b) / 2) 100%, var(--p) calc(100% + var(--h)), max(0%, var(--p) - var(--b) / 2) 100%);
+    background: var(--c);
+    border-image: conic-gradient(var(--c) 0 0) fill 0/var(--r) calc(100% - var(--p) - var(--b) / 2) 0 calc(var(--p) - var(--b) / 2)/0 0 var(--h) 0;
+    /* Controls Position and width of the popup on desktop
+    /* auto for top and right to unset values from mobile styles */
+    top: auto;
+    left: 50%;
+    right: auto;
+    bottom: 6rem;
+    /* Value set in the variables file as $popup-width-desktop */
+    width: 25rem;
+  }
+  #share-popup .text {
+    font-size: clamp(0.91rem, 0.2vi + 0.87rem, 1.05rem);
+    letter-spacing: 0.5rem;
+  }
+  #share-popup .social-icons {
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 1.5rem;
+    /* Directly control the size of the icons (for SVG and images) */
+  }
+  #share-popup .social-icons svg,
+  #share-popup .social-icons img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  #share-popup.active {
+    /* Change from column to row layout with default centering parameters */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* Controls horizontal position of items in popup */
+    gap: 2rem;
+  }
+}
 *,
 *::before,
 *::after {
@@ -44,8 +137,7 @@
 }
 
 html {
-  /* Fluid Typography */
-  font-size: clamp(0.8rem, 0.9rem + 1vw, 1rem);
+  font-size: clamp(0.81rem, 0.09vi + 0.79rem, 0.88rem);
   font-family: "Manrope", sans-serif;
   font-weight: 500;
 }
@@ -53,7 +145,7 @@ html {
 /* Styling */
 h1 {
   font-weight: 700;
-  font-size: 1rem;
+  font-size: clamp(1.16rem, 0.53vi + 1.03rem, 1.51rem);
 }
 
 .container {
@@ -71,26 +163,47 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 23.5rem;
+  overflow: hidden;
   background-color: white;
   color: hsl(217, 19%, 35%);
   border-radius: 0.75rem;
   padding: 0;
-  overflow: hidden;
-  max-width: 20rem;
+}
+@media (min-width: 1024px) {
+  .article-preview {
+    display: grid;
+    grid-template-columns: 18rem 1fr;
+    grid-template-areas: "header content" "header author-info";
+    max-width: 50rem;
+    overflow: visible;
+  }
 }
 .article-preview__header {
-  width: 100%;
-  height: 12.5rem;
+  width: 120%;
+  height: 15rem;
   background-image: url("../images/drawers.jpg");
   background-size: cover;
   background-position: center;
 }
+@media (min-width: 1024px) {
+  .article-preview__header {
+    grid-area: header;
+    min-height: 100%;
+    width: auto;
+    border-radius: 0.75rem 0 0 0.75rem;
+  }
+}
 .article-preview__content {
   padding: 2rem 2rem 1.25rem;
-  font-size: 0.75rem;
+}
+@media (min-width: 1024px) {
+  .article-preview__content {
+    grid-area: content;
+  }
 }
 .article-preview h1 {
-  padding-bottom: 0.75rem;
+  padding-bottom: 1rem;
 }
 .article-preview__text {
   color: hsl(214, 17%, 51%);
@@ -100,15 +213,24 @@ h1 {
 .author-info {
   position: relative;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr 4fr 1fr;
   grid-template-areas: "avatar author-name button" "avatar date        button";
-  gap: 0 1.5rem;
-  padding: 1rem 2rem;
+  gap: 0 1rem;
+  padding-inline: 1rem;
+  padding-block: 0.75rem 2rem;
+}
+@media (min-width: 1024px) {
+  .author-info {
+    grid-area: author-info;
+    grid-template-columns: 1fr 4fr 1fr;
+    gap: 0;
+    padding-left: 2rem;
+  }
 }
 .author-info__avatar {
   grid-area: avatar;
   border-radius: 50%;
-  max-width: 2.5rem;
+  max-width: 3rem;
   align-self: center;
 }
 .author-info__name {
@@ -116,12 +238,12 @@ h1 {
   color: hsl(217, 19%, 35%);
   font-weight: 700;
   align-self: end;
-  font-size: 0.8rem;
+  font-size: clamp(0.91rem, 0.2vi + 0.87rem, 1.05rem);
 }
 .author-info__date {
   grid-area: date;
   color: hsl(212, 23%, 69%);
-  font-size: 0.75rem;
+  font-size: clamp(0.91rem, 0.2vi + 0.87rem, 1.05rem);
   align-self: start;
 }
 .author-info__button {
@@ -130,8 +252,9 @@ h1 {
   border-radius: 50%;
   background: hsl(210, 46%, 95%);
   border: none;
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
+  transform: translate(-0.5rem, 0.5rem);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -139,18 +262,19 @@ h1 {
   z-index: 2;
   transition: background-color 0.3s ease;
 }
+.author-info__button__share-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
 .author-info__button.active {
   background: hsl(214, 17%, 51%);
 }
 .author-info__button.active .author-info__share-icon {
   filter: brightness(0) invert(1);
 }
-.author-info__share-icon {
-  width: 1rem;
-}
 
 .attribution {
-  font-size: 0.688rem;
+  font-size: clamp(0.72rem, 0.01vi + 0.72rem, 0.73rem);
   text-align: center;
   padding-top: 1.5rem;
 }

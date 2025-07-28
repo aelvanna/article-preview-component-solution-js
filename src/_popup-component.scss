@@ -1,9 +1,12 @@
 @use "variables" as *;
 @use "mixins";
+/* ==========================================================================*/
+/* Popup Component for share button */
+/* Styling for Pop-up menu that appears when user clicks on the share button
+/* ==========================================================================*/
 
-// Styling for Pop-up menu that appears when user clicks on the share button
-// Hidden by default until user clicks on the share button
 #share-popup {
+  /* Hidden by default until user clicks on the share button */
   display: none;
   position: absolute;
   top: 0;
@@ -14,16 +17,15 @@
 
   background: $primary-font-color;
   color: $bg-color-base;
-  // Add padding to align the popup's content with the rest of the card
-  // This is independent of the author-info padding.
-  // Match the horizontal padding of the .author-info container
-  padding: $space-sm $space-lg;
-  // Allow overlay to fill the entire parent author-info container
+
+  /* Allow overlay to fill the entire parent author-info container */
   margin-inline: -$space-sm;
+  padding-inline: $space-xl;
+  padding-block: $space-sm $space-lg;
 
   .text {
-    font-size: $fs-base;
-    letter-spacing: 0.25rem;
+    font-size: $fs-xl;
+    letter-spacing: 0.5rem;
     text-transform: uppercase;
     color: $grayish-blue;
     font-weight: 500;
@@ -34,9 +36,87 @@
     gap: $space-sm;
   }
 
-  // When the popup has the .active class i.e. users clicks share button, it will be displayed
+  /* When the popup has the .active class i.e. users clicks share button, it will be displayed */
   &.active {
     @include mixins.flexbox($justify: flex-start);
+    padding-block: $space-md;
     gap: $space-md;
+  }
+}
+
+@include mixins.breakpoint($breakpoint-desktop) {
+  #share-popup {
+    position: absolute;
+    /* Design of the popup on desktop
+    /* Original CSS from is #5 from: https://css-generators.com/tooltip-speech-bubble/ */
+    color: #fff;
+    font-size: 18px;
+    /* Value set in the variables file as $popup-width-desktop */
+    max-width: $popup-width-desktop;
+    text-align: center;
+
+    /* Triangle dimensions */
+    --b: 2em; /* base */
+    --h: 1em; /* height */
+
+    --p: 50%; /* triangle position (0%:left 100%:right) */
+    --r: 1em; /* the radius */
+    --c: #{$primary-font-color}; /* background-color */
+
+    padding: 1em 1.5em;
+    border-radius: var(--r) var(--r)
+      min(var(--r), 100% - var(--p) - var(--b) / 2)
+      min(var(--r), var(--p) - var(--b) / 2) / var(--r);
+    clip-path: polygon(
+      0 100%,
+      0 0,
+      100% 0,
+      100% 100%,
+      min(100%, var(--p) + var(--b) / 2) 100%,
+      var(--p) calc(100% + var(--h)),
+      max(0%, var(--p) - var(--b) / 2) 100%
+    );
+    background: var(--c);
+    border-image: conic-gradient(var(--c) 0 0) fill 0 / var(--r)
+      calc(100% - var(--p) - var(--b) / 2) 0 calc(var(--p) - var(--b) / 2) / 0 0
+      var(--h) 0;
+
+    /* Controls Position and width of the popup on desktop
+    /* auto for top and right to unset values from mobile styles */
+    top: auto;
+    left: 50%;
+    right: auto;
+    bottom: 6rem;
+    /* Value set in the variables file as $popup-width-desktop */
+    width: $popup-width-desktop;
+
+    .text {
+      font-size: $fs-md;
+      letter-spacing: 0.5rem;
+    }
+
+    .social-icons {
+      justify-content: center;
+      gap: $space-md;
+      font-size: 1.5rem;
+
+      /* Directly control the size of the icons (for SVG and images) */
+      svg,
+      img {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+
+    &.active {
+      /* Change from column to row layout with default centering parameters */
+      @include mixins.flexbox(
+        $direction: row,
+        $align: center,
+        $justify: center
+      );
+      /* Controls horizontal position of items in popup */
+      gap: $space-lg;
+    }
   }
 }

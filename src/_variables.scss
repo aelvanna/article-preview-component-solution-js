@@ -1,9 +1,23 @@
-//==============================================
-// Variable Declarations
-//==============================================
+/*============================================*/
+/* Variable Declarations
+/*============================================*/
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
-// Colour Variables //
 
+/* Font Fami$ly */
+$primary-font: "Manrope", sans-serif;
+
+/* Fluid Typography & Font-size variables */
+/* clamp() --> with min, preferred, max.
+/* This makes the font size responsive. */
+$fs-sm: clamp(0.72rem, 0.01vi + 0.72rem, 0.73rem);
+$fs-base: clamp(0.81rem, 0.09vi + 0.79rem, 0.88rem);
+$fs-md: clamp(0.91rem, 0.2vi + 0.87rem, 1.05rem);
+$fs-lg: clamp(1.03rem, 0.35vi + 0.95rem, 1.26rem);
+$fs-xl: clamp(1.16rem, 0.53vi + 1.03rem, 1.51rem);
+$fs-xxl: clamp(1.3rem, 0.77vi + 1.12rem, 1.81rem);
+$fs-xxxl: clamp(1.46rem, 1.07vi + 1.21rem, 2.18rem);
+
+/* Colour Variables */
 $link-color: hsl(228, 45%, 44%);
 $bg-color-card: #ffff;
 $bg-color-base: hsl(210, 46%, 95%);
@@ -11,20 +25,11 @@ $primary-font-color: hsl(217, 19%, 35%);
 $secondary-font-color: hsl(214, 17%, 51%);
 $grayish-blue: hsl(212, 23%, 69%);
 
-// Border Radius Variables
+/* Border Radius Variables */
 $border-radius-card: 0.75rem;
 $border-radius-circle: 50%;
 
-// Font Size Variables //
-$fs-sm: 0.75rem;
-$fs-base: 0.8rem;
-$fs-h1: 1rem;
-$fs-attribution: 0.688rem;
-
-// Font Family //
-$primary-font: "Manrope", sans-serif;
-
-// Spacing Variables //
+/* Spacing Variables */
 $space-xxs: 0.5rem;
 $space-xs: 0.75rem;
 $space-sm: 1rem;
@@ -33,3 +38,10 @@ $space-lg: 2rem;
 $space-xl: 2.5rem;
 $space-xxl: 3rem;
 $space-3xl: 3.5rem;
+
+/* Breakpoint Variables */
+$breakpoint-desktop: 1024px;
+$breakpoint-tablet: 768px;
+
+/* Popup Variables */
+$popup-width-desktop: 25rem;

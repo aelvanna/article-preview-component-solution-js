@@ -1,14 +1,15 @@
 @use "variables" as *;
 
-//=====================================================================
-// Mixins
-//=====================================================================
+/*===================================================================*/
+/* Mixins
+/*===================================================================*/
+/* Variables defined in _variables.scss */
 
-// A helper mixin for creating flexbox containers.
-// Defaults to a centered row layout.
-// @param {string} $direction - The flex-direction (e.g., row, column).
-// @param {string} $justify - The justify-content value.
-// @param {string} $align - The align-items value.
+/* A helper mixin for creating flexbox containers.
+/* Defaults to a centered row layout.
+/* @param {string} $direction - The flex-direction (e.g., row, column).
+/* @param {string} $justify - The justify-content value.
+/* @param {string} $align - The align-items value. */
 @mixin flexbox($direction: row, $justify: center, $align: center) {
   display: flex;
   flex-direction: $direction;
@@ -16,11 +17,11 @@
   align-items: $align;
 }
 
-// Applies a consistent theme to a card element.
-// @param {Color} $bg-color - The background color of the card.
-// @param {Color} $font-color - The text color for the card's content.
-// @param {Length} $border-radius - The corner radius for the card.
-// @param {Length | List} $padding - The padding value(s) for the card.
+/* Applies a consistent theme to a card element.
+/* @param {Color} $bg-color - The background color of the card.
+/* @param {Color} $font-color - The text color for the card's content.
+/* @param {Length} $border-radius - The corner radius for the card.
+/* @param {Length | List} $padding - The padding value(s) for the card. */
 @mixin card-theme(
   $bg-color: $bg-color-card,
   $font-color: $primary-font-color,
@@ -31,4 +32,19 @@
   color: $font-color;
   border-radius: $border-radius;
   padding: $padding;
+}
+
+/* Mixin alternative for media queries.
+/* @param {variable} : $min --> The minimum breakpoint
+/* @param {variable} : $max --> The maximum breakpoint */
+@mixin breakpoint($min, $max: null) {
+  @if $max {
+    @media (min-width: $min) and (max-width: ($max - 1px)) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $min) {
+      @content;
+    }
+  }
 }
