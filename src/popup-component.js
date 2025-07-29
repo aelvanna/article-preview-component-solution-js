@@ -7,7 +7,7 @@
 
 /* Select the share button and the popup element. */
 const shareButton = document.querySelector(".author-info__button");
-const sharePopup = document.getElementById("share-popup");
+const sharePopup = document.querySelector(".share-popup");
 
 /* Toggle the popup visibility via an EventListener. */
 shareButton.addEventListener("click", () => {

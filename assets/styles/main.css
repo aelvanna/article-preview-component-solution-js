@@ -30,11 +30,14 @@
 /* Mixin alternative for media queries.
 /* @param {variable} : $min --> The minimum breakpoint
 /* @param {variable} : $max --> The maximum breakpoint */
+/* Mixin for reducing animation */
+/* This mixin applies a reduced motion preference for users who have set it in their system settings.
+/* It ensures that animations and transitions are minimal or disabled for better accessibility. */
 /* ==========================================================================*/
 /* Popup Component for share button */
 /* Styling for Pop-up menu that appears when user clicks on the share button
 /* ==========================================================================*/
-#share-popup {
+.share-popup {
   /* Hidden by default until user clicks on the share button */
   display: none;
   position: absolute;
@@ -51,21 +54,26 @@
   padding-block: 1rem 2rem;
   /* When the popup has the .active class i.e. users clicks share button, it will be displayed */
 }
-#share-popup .text {
+.share-popup .text {
   font-size: clamp(1.16rem, 0.53vi + 1.03rem, 1.51rem);
   letter-spacing: 0.5rem;
   text-transform: uppercase;
   color: hsl(212, 23%, 69%);
   font-weight: 500;
 }
-#share-popup .social-icons {
+.share-popup .social-icons {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 1rem;
 }
-#share-popup.active {
+.share-popup .social-icons a:focus-visible {
+  outline: 2px solid hsl(212, 23%, 69%);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.share-popup.active {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -75,7 +83,7 @@
 }
 
 @media (min-width: 1024px) {
-  #share-popup {
+  .share-popup {
     position: absolute;
     /* Design of the popup on desktop
     /* Original CSS from is #5 from: https://css-generators.com/tooltip-speech-bubble/ */
@@ -104,22 +112,22 @@
     /* Value set in the variables file as $popup-width-desktop */
     width: 25rem;
   }
-  #share-popup .text {
+  .share-popup .text {
     font-size: clamp(0.91rem, 0.2vi + 0.87rem, 1.05rem);
     letter-spacing: 0.5rem;
   }
-  #share-popup .social-icons {
+  .share-popup .social-icons {
     justify-content: center;
     gap: 1.5rem;
     font-size: 1.5rem;
     /* Directly control the size of the icons (for SVG and images) */
   }
-  #share-popup .social-icons svg,
-  #share-popup .social-icons img {
+  .share-popup .social-icons svg,
+  .share-popup .social-icons img {
     width: 1.5rem;
     height: 1.5rem;
   }
-  #share-popup.active {
+  .share-popup.active {
     /* Change from column to row layout with default centering parameters */
     display: flex;
     flex-direction: row;
@@ -144,6 +152,12 @@ html {
   font-weight: 500;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none;
+    animation: none;
+  }
+}
 /* Styling */
 h1 {
   font-weight: 700;

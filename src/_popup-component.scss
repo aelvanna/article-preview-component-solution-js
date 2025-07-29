@@ -5,7 +5,7 @@
 /* Styling for Pop-up menu that appears when user clicks on the share button
 /* ==========================================================================*/
 
-#share-popup {
+.share-popup {
   /* Hidden by default until user clicks on the share button */
   display: none;
   position: absolute;
@@ -34,6 +34,12 @@
   .social-icons {
     @include mixins.flexbox();
     gap: $space-sm;
+
+    a:focus-visible {
+      outline: 2px solid $grayish-blue;
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
   }
 
   /* When the popup has the .active class i.e. users clicks share button, it will be displayed */
@@ -45,7 +51,7 @@
 }
 
 @include mixins.breakpoint($breakpoint-desktop) {
-  #share-popup {
+  .share-popup {
     position: absolute;
     /* Design of the popup on desktop
     /* Original CSS from is #5 from: https://css-generators.com/tooltip-speech-bubble/ */

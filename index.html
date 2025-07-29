@@ -33,8 +33,14 @@
           </p>
         </div>
         <footer class="author-info">
-          <div id="share-popup">
-            <div class="text">Share</div>
+          <div
+            class="share-popup"
+            id="share-popup-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="share-popup-label"
+          >
+            <div class="text" id="share-popup-label">Share</div>
             <nav class="social-icons">
               <a
                 href="https://www.facebook.com"
@@ -68,7 +74,13 @@
           />
           <p class="author-info__name">Michelle Appleton</p>
           <p class="author-info__date">28 Jun 2020</p>
-          <button class="author-info__button" type="button">
+          <button
+            class="author-info__button"
+            type="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="share-popup-menu"
+          >
             <img
               src="assets/images/icon-share.svg"
               alt="Share button"
