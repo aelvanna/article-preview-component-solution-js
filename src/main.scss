@@ -17,6 +17,8 @@ html {
   font-weight: 500;
 }
 
+@include mixins.reduced-motion();
+
 /* Styling */
 
 h1 {
